@@ -1,4 +1,4 @@
-package com.antoniocostadossantos.git_repos_jetpackcompose
+package com.antoniocostadossantos.git_repos_jetpackcompose.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.HomeScreen
 import com.antoniocostadossantos.git_repos_jetpackcompose.ui.theme.GitreposjetpackcomposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,25 +23,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    HomeScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    GitreposjetpackcomposeTheme {
-        Greeting("Android")
     }
 }
