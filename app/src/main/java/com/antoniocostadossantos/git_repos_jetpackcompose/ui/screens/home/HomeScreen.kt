@@ -1,5 +1,6 @@
-package com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens
+package com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,14 +22,16 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    modifier: Modifier = Modifier
+) {
 
     val viewModel = koinViewModel<HomeViewModel>()
     val uiState by viewModel.uiState.collectAsState()
     val scope = rememberCoroutineScope()
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -41,6 +44,7 @@ fun HomeScreen() {
                 }
             }
         )
+
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
@@ -50,8 +54,13 @@ fun HomeScreen() {
             items(
                 items = uiState.repositories,
                 key = { it.id }
-            ) {
-                RepositoryItem(item = it)
+            ) { item ->
+                RepositoryItem(
+                    item = item,
+                    onClick = {
+
+                    }
+                )
             }
         }
         if (uiState.showProgress) {

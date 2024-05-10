@@ -1,4 +1,4 @@
-package com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens
+package com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
