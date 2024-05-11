@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlinx-serialization")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -61,7 +62,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.coil.compose)
 
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

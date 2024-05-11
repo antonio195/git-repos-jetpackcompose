@@ -3,7 +3,7 @@ package com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.antoniocostadossantos.git_repos_jetpackcompose.data.GitHubRestApi
-import com.antoniocostadossantos.git_repos_jetpackcompose.model.Item
+import com.antoniocostadossantos.git_repos_jetpackcompose.model.repo.Item
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -43,7 +43,14 @@ class HomeViewModel(
         _uiState.update { currentState ->
             currentState.copy(showProgress = true)
         }
-        val repositories = api.getRepositories(_uiState.value.lang).items
+
+        val lang = _uiState.value.lang
+
+        val repositories = api.getRepositories(
+            lang = lang,
+            page = 1,
+            perPage = 20
+        ).items
         _uiState.update { currentState ->
             currentState.copy(
                 repositories = repositories,

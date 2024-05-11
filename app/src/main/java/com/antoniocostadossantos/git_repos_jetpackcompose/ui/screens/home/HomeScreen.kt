@@ -1,6 +1,5 @@
 package com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,57 +15,70 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.antoniocostadossantos.git_repos_jetpackcompose.mock.sampleItemRepository
 import com.antoniocostadossantos.git_repos_jetpackcompose.ui.components.RepositoryItem
 import com.antoniocostadossantos.git_repos_jetpackcompose.ui.components.SearchBar
+import com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.details.RepositoryItemDetails
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-@Composable
-fun HomeScreen(
-    modifier: Modifier = Modifier
-) {
+data class HomeScreen(
+    private val modifier: Modifier = Modifier
+) : Screen {
 
-    val viewModel = koinViewModel<HomeViewModel>()
-    val uiState by viewModel.uiState.collectAsState()
-    val scope = rememberCoroutineScope()
+    @Composable
+    override fun Content() {
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-        SearchBar(
-            text = uiState.lang,
-            onSearchChange = { uiState.onSearchChange(it) },
-            onClickSearch = {
-                scope.launch {
-                    viewModel.fetchData()
+        val viewModel = koinViewModel<HomeViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
+        val scope = rememberCoroutineScope()
+        val navigator = LocalNavigator.currentOrThrow
+
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            SearchBar(
+                text = uiState.lang,
+                onSearchChange = { uiState.onSearchChange(it) },
+                onClickSearch = {
+                    scope.launch {
+                        viewModel.fetchData()
+                    }
+                }
+            )
+
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                items(
+                    items = uiState.repositories,
+                    key = { it.id }
+                ) { item ->
+                    RepositoryItem(
+                        item = item,
+                        onClick = {
+                            navigator.push(RepositoryItemDetails(
+                                it,
+                                modifier = modifier
+                            ))
+                        }
+                    )
                 }
             }
-        )
-
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            items(
-                items = uiState.repositories,
-                key = { it.id }
-            ) { item ->
-                RepositoryItem(
-                    item = item,
-                    onClick = {
-
-                    }
-                )
+            if (uiState.showProgress) {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         }
-        if (uiState.showProgress) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        }
     }
+
 }
 
 @Preview

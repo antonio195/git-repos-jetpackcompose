@@ -1,7 +1,7 @@
 package com.antoniocostadossantos.git_repos_jetpackcompose.mock
 
-import com.antoniocostadossantos.git_repos_jetpackcompose.model.Item
-import com.antoniocostadossantos.git_repos_jetpackcompose.model.Owner
+import com.antoniocostadossantos.git_repos_jetpackcompose.model.repo.Item
+import com.antoniocostadossantos.git_repos_jetpackcompose.model.repo.Owner
 
 val sampleItemRepository = Item(
     description = "A memory leak detection library for Android.",
@@ -17,5 +17,8 @@ val sampleItemRepository = Item(
         id = 82592,
         login = "square"
     ),
-    stargazersCount = 29145
+    stargazersCount = 29145,
+    openIssues = 1321,
+    watchers = 2131,
+    score = 1.9
 )

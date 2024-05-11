@@ -1,9 +1,12 @@
-package com.antoniocostadossantos.git_repos_jetpackcompose.model
+package com.antoniocostadossantos.git_repos_jetpackcompose.model.repo
 
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
 data class Item(
     @SerialName("description")
@@ -26,4 +29,10 @@ data class Item(
     val owner: Owner,
     @SerialName("stargazers_count")
     val stargazersCount: Int,
-)
+    @SerialName("open_issues")
+    val openIssues: Int,
+    @SerialName("watchers")
+    val watchers: Int,
+    @SerialName("score")
+    val score: Double,
+): Parcelable

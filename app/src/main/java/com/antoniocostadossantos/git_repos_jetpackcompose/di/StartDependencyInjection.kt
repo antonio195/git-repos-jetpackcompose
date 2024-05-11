@@ -2,6 +2,7 @@ package com.antoniocostadossantos.git_repos_jetpackcompose.di
 
 import android.app.Application
 import com.antoniocostadossantos.git_repos_jetpackcompose.data.GitHubRestApi
+import com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.commits.CommitsViewModel
 import com.antoniocostadossantos.git_repos_jetpackcompose.ui.screens.home.HomeViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -51,6 +52,7 @@ class StartDependencyInjection : Application() {
 
     private val viewModelModule = module {
         viewModel { HomeViewModel(api = get()) }
+        viewModel { CommitsViewModel(api = get()) }
     }
 
 

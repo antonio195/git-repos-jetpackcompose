@@ -1,4 +1,4 @@
-package com.antoniocostadossantos.git_repos_jetpackcompose.model
+package com.antoniocostadossantos.git_repos_jetpackcompose.model.repo
 
 
 import kotlinx.serialization.SerialName
